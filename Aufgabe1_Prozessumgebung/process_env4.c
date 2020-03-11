@@ -7,7 +7,7 @@ int main(int argc, char *argv[], char *envp[])
 
 
         /*getenv()*/
-        printf("getenv(HOME): %s", getenv("HOME"));
+        printf("getenv(HOME): %s \n", getenv("HOME"));
 
         /*the other functions cant be called, because it's not allowed in posic standart and ANSI-C*/
 
