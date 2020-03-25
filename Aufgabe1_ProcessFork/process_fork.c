@@ -2,33 +2,28 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <sys/wait.h>
 
 int main(int argc, char* argv[], char* envp[]){
         pid_t childpid;
-        int vater, kind;
+        int vater = getpid();
+
         for(int i = 1; i < argc; i++){
-                printf("Auftrag: %s\n",argv[i]);
                 childpid = fork();
 
-                if(childpid < 0) printf("!Fehler beim Fork()!\n");
-
+                if(childpid < 0){
+                        printf("Fork() Fehler!");
+                }
                 if(childpid == 0){
-                        // im Kind Prozess
+                        printf("Sub-Server %d: Auftrag: %s von  Top-Server %d erhalten. \n \n", getpid(),argv[i], vater);
 
-                        kind = getpid();
-
+                        break;
                 }
                 else{
-                        //im Vater
+                        printf("Top-Server %d: Auftrag: %s  an  Sub-Server %d weitergeleitet. \n", vater,argv[i], childpid);
 
-                        vater = getpid();
-
+                        childpid = wait(NULL);
                 }
-
-                printf("---------------------------------------------------------------------\n");
-                printf("Top-Server %d: Auftrag: %s an Sub-Server: %d weitergegeben.\n", vater, argv[i], kind);
-                printf("Sub-Server %d: Auftrag: %s von Top-Server: %d erhalten.\n", kind, argv[i], vater);
-                printf("---------------------------------------------------------------------\n");
 
         }
         return EXIT_SUCCESS;
