@@ -9,7 +9,7 @@ void printenv(){
 
         for (int i = 1; i <= s ; i++) {
                 printf("%s\n", s);
-                s = *(environ+i);
+                s = *(environ++);
         }
 
 }
