@@ -21,7 +21,7 @@ int main(){
 
                         printf("1: normale Terminierung mit EXIT_SUCCESS.\n");
                         printf("2: normale Terminierung mit EXIT_FAILURE.\n");
-                        printf("3: normale Terminierung mit frei wahelbaren Exit-Code (Random).\n");
+                        printf("3: normale Terminierung mit frei wahelbaren Exit-Code.\n");
                         printf("4: abnormale Terminierung mit Division durch 0 (Integer).\n");
                         printf("5: normale Terminierung durch unzulaessigen Speicherbereich.\n");
                         printf("0: beenden.\n");
