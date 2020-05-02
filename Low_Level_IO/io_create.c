@@ -15,18 +15,17 @@ int main(int argc, char **argv){
                 else{
                         int fd;
                         int buffer = 1;
-
-                        fd = open("dummy",O_CREAT | O_WRONLY,S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
+                        char* name[20];
+                        printf("Namen der Datei angeben: ");
+                        scanf("%s",&name);
+                        fd = open(name,O_TRUNC | O_CREAT | O_WRONLY, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
 
                         lseek(fd, filesize -1, SEEK_END);
                         write(fd, &buffer, 1);
 
-                        printf("\n \n!!! --- Beachte, Open() ueberschreibt NICHT!. Loeschen der alten Dummy-Datei ist noetig \n \n \n");
+                        //printf("\n \n!!! --- Beachte, Open() ueberschreibt NICHT!. Loeschen der alten Dummy-Datei ist noetig \n \n \n");
                 }
         }
 
         return EXIT_SUCCESS;
 }
-~
-~
-~

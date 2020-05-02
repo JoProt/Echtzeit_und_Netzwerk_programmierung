@@ -7,17 +7,35 @@
 
 int main(int argc, char **argv){
 
+        if(argc != 2)printf("Aufruf: ./copy + buffer size");
+        else{
         ssize_t ret_in, ret_out;
         int buffer = *argv[1];
         int fd_oeffnen;
         int fd_kopiert;
-
+        char* name[20];
         char* charBuf[buffer];
-        if((fd_oeffnen = open("./dummy", O_RDONLY))==-1){
+        printf("Dateiname, welche kopiert werden soll: ");
+
+        scanf("%s", &name);
+
+        if((fd_oeffnen = open(name,O_CREAT| O_TRUNC, O_RDONLY))==-1){
                   printf("Oeffnen der zu kopierenden Datei fehlgeschlagen\n");
                   return (EXIT_FAILURE);
          }
-         if((fd_kopiert = open("./kopiert_dummy", O_CREAT | O_WRONLY))==-1){
+        //verbinden von strings
+
+        char* s = "Kopierte-";
+        char * connectednames;
+
+        connectednames = malloc(strlen(name)+ strlen(s));
+
+        strcpy(connectednames, s);
+        strcat(connectednames,name);
+
+        //---------------
+
+        if((fd_kopiert = open(connectednames, O_CREAT | O_WRONLY))==-1){
            printf("Oeffnen einer neuen Datei zum kopieren fehlgeschlagen\n");
            return (EXIT_FAILURE);
          }
@@ -32,6 +50,7 @@ int main(int argc, char **argv){
                 printf("... kopiert.\n");
 
         }
+
 
 
 
