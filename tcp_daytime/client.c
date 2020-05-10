@@ -1,7 +1,3 @@
-// parameters:
-// IP       - optional; Flag '-i'; IP-Adresse des TCP-Daytime-Servers
-// Port     - optional; Flag '-p'; Port des Zielsystems
-
 // use POSIX version 2001
 #define _POSIX_C_SOURCE 200112L
 
@@ -15,7 +11,7 @@
 #include <time.h>
 #include <string.h>
 
-#define BUFLEN  1024    // maximum response size
+#define BUFLEN  1024    // max nachrichten groesse
 
 int main(int argc, char *argv[]) {
     // check arguments
@@ -31,7 +27,7 @@ int main(int argc, char *argv[]) {
 
     struct sockaddr_in srvaddr;
     int socketfd;                 
-    char cBuffer[BUFLEN+1];     
+    char cBuffer[BUFLEN+1];     //max + 1, da wir bei 0 starten 
     char* pc;                   
 
 
@@ -73,18 +69,18 @@ int main(int argc, char *argv[]) {
     // zeiger pc auf cBuffer setzten
     pc = cBuffer;
 
-    // hlesen des buffers bis read = 0
+    // lesen des buffers bis read = 0
     int buff;
     while ( buff = read(socketfd, pc, BUFLEN - ( pc - cBuffer))) {
         pc += buff;
     }
 
-    // close the FileDescriptor to avoid errors
-    close(socketfd);
-    *pc = '\0'; //\0 terminierung
+   
+    close(socketfd); // socket wieder freigeben!!
+    *pc = '\0'; // '\0' terminierung
 
-    // ausgabe der zeit aus cBuffer
-    printf("%s", cBuffer);
+    
+    printf("%s", cBuffer);// ausgabe der zeit aus cBuffer
 
     return EXIT_SUCCESS;
 }
