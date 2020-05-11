@@ -1,4 +1,3 @@
-
 #include "echo.h"    //eigener header -> ausgelagert
 
 int main(int argc, char *argv[]) {
@@ -9,16 +8,16 @@ int main(int argc, char *argv[]) {
     }
 
     struct sockaddr_in srvaddr;
-    int sockfd;                 
+    int sockfd;
 
 
-    // input und output 
+    // input und output
     char in[MAXLEN];
     char out[MAXLEN];
     int opt;
     const char *optstring;
 
-    
+
     int ip, port;
     ip = inet_addr(SRV_IP);
     port = SRV_PORT;
@@ -45,17 +44,25 @@ int main(int argc, char *argv[]) {
         perror("connect");
         exit(EXIT_FAILURE);
     }
+
+    printf("beenden mit Signal: strg + C\n");
+    printf("Nachricht in die Schulcht rufen:   ");
+
     while (fgets(in, MAXLEN, stdin) != 0) {
-        if (write(sockfd, in, MAXLEN) != sizeof(in)) {
+            if (write(sockfd, in, MAXLEN) != sizeof(in)) {
             perror("write");
             exit(EXIT_FAILURE);
         }
+        printf("Nachrichten Echo:   ");
         if (read(sockfd, out, MAXLEN) < 0) {
             perror("read");
             exit(EXIT_FAILURE);
         }
 
         fputs(out, stdout);
+        printf("\n");
+        printf("Nachricht in die Schulcht rufen:   ");
+
     }
 
     return EXIT_SUCCESS;
