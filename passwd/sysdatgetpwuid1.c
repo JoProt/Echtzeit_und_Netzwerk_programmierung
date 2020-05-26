@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
 			exit(EXIT_FAILURE);
 		}
 
-        if((name = getpwuid(atoi(argv[1]))) != NULL) {
+        if((ergebnis = getpwuid(atoi(argv[1]))) != NULL) {
 			printf("Write gets called...\n");
             writePW(ergebnis);
         } else {
