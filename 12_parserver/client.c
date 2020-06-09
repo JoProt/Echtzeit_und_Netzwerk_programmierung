@@ -37,9 +37,11 @@ int main(int argc, char *argv[]) {
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
     memset(&srvaddr, 0, sizeof(srvaddr));
+
     srvaddr.sin_family = AF_INET;
     srvaddr.sin_port = htons(port);
     srvaddr.sin_addr.s_addr = ip;
+
     if (connect(sockfd, (struct sockaddr *) &srvaddr, sizeof(srvaddr)) < 0) {
         perror("connect");
         exit(EXIT_FAILURE);

@@ -1,8 +1,6 @@
 #include "echo.h"
 
-void child_handler(int signo) {
-    wait(NULL); 
-}
+void child_handler(int signo); 
 
 int main(int argc, char *argv[]) {
     struct sockaddr_in srvaddr;
@@ -36,7 +34,8 @@ int main(int argc, char *argv[]) {
 
 
     for(;;) {   //while(true)
-	signal(SIGCHLD, child_handler);
+	//signal(SIGCHLD, child_handler);
+    signal(SIGCHLD, SIG_IGN);   // System V
         if((connfd = accept(socket_fd, (struct sockaddr *) NULL, NULL)) < 0) {
              perror("Client Disconnect");
             exit(EXIT_FAILURE);
@@ -68,5 +67,8 @@ int main(int argc, char *argv[]) {
     return EXIT_SUCCESS;
 }
 
-
+void child_handler(int signo){
+    wait(NULL);
+    return;
+}
 
